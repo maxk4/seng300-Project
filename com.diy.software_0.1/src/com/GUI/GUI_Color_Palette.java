@@ -10,6 +10,7 @@ public class GUI_Color_Palette
 	public static Color DARK_BROWN = Color.decode("#BFB3A8");
 	public static Color LIGHT_BROWN = Color.decode("#D9D0C5");
 	public static Color RED_BROWN = Color.decode("#8C6F6C");
+	public static Color WHITE = Color.decode("#FFFFFF");
 	
 
 }
