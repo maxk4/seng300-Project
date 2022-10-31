@@ -19,42 +19,33 @@ public class TestGUI
 		String buttonText = "Test Button";
 		//Button setup 
 		JButton button = new JButton(buttonText);
+		button.setBackground(Color.decode("#5D6A73"));
+		button.setFocusable(false);//Removes the border around button text
+		button.setBounds(0,0, 40,500);
+		button.addActionListener(e -> ButtonPressAction());
 		
-		//Panel Border Size
-		int panelTopSize  = 30;
-		int panelBottomSize  = 30;
-		int panelLeftSize  = 10;
-		int panelRightSize  = 30;
-		
-		//Panel Grid Size
-		int panelGridRow  = 4;
-		int panelGridColumn  = 4;
-
 		//Panel Setup
-		JPanel panel  = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(panelTopSize,panelBottomSize,panelLeftSize,panelRightSize));
-		panel.setLayout(new GridLayout(panelGridRow, panelGridColumn));
+		GUI_JPanel panel  = new GUI_JPanel();
+		
+		
 		panel.add(button);
 		
-		
-		//Window title
-		String windowTitle = "test Gui";
-		int windowSizeX = 1280;
-		int windowSizeY = 720;
-		
-		//Window Setup
-		JFrame window = new JFrame();
+		GUI_Jframe window = new GUI_Jframe();
+		//Add a panel to the window
 		window.add(panel, BorderLayout.CENTER);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setTitle(windowTitle);
-		window.setSize(windowSizeX,windowSizeY);
-		window.setVisible(true);
-		panel.setBackground(Color.decode("#D9D0C5"));
-		button.setBackground(Color.decode("#5D6A73"));
+
+
 		
 	}
+	
 	public static void main(String[] args) 
 	{
 		new TestGUI();
+	}
+	
+	
+	public void ButtonPressAction()
+	{
+		System.out.println("Hey");
 	}
 }
