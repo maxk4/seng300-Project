@@ -1,5 +1,7 @@
 package com.diy.software;
 
+import com.diy.hardware.*;
+
 /**
  * Implements the use case: pay by credit
  */
