@@ -59,7 +59,7 @@ public class ScanItem {
 			// 2. Customer I/O Signals about Do Not Place Item in Bagging Area request
 			// 3. Attendant I/O Signals the System of weight discrepancy approval
 			
-			throw new WeightDiscrepancyException;
+			throw new WeightDiscrepancyException();
 		}
 	}
 }
