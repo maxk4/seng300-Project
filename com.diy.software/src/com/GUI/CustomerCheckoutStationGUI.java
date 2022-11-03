@@ -10,7 +10,8 @@ public class CustomerCheckoutStationGUI
 	/* Title Section Variables*/
 	GUI_JPanel titlePanel;
 	GUI_JLabel titleLabel;
-		
+	
+	/* Center Section Variables*/
 	GUI_JPanel centerPanel;
 	
 	/* Item Checkout Section Variables*/
@@ -19,24 +20,40 @@ public class CustomerCheckoutStationGUI
 	GUI_JPanel itemCheckoutTotalPanel;
 	GUI_JPanel itemCheckoutPanel;
 	
+	/*Item one component variable */
+	GUI_JLabel itemOneLabel;
+	GUI_JLabel itemOnePriceLabel;
+	GUI_JPanel itemOnePanel;
+	
+	/*Item two component variable */
+	GUI_JLabel itemTwoLabel;
+	GUI_JLabel itemTwoPriceLabel;
+	GUI_JPanel itemTwoPanel;
+	
+	/*Item three component variable */
+	GUI_JLabel itemThreeLabel;
+	GUI_JLabel itemThreePriceLabel;
+	GUI_JPanel itemThreePanel;
+	
+	/*Item four component variable */
+	GUI_JLabel itemFourLabel;
+	GUI_JLabel itemFourPriceLabel;
+	GUI_JPanel itemFourPanel;
+	
 	/* Current Item Section Variables*/
 	GUI_JPanel currentItemCheckoutPanel;
 	GUI_JPanel currentItemTitlePanel;
 	GUI_JPanel currentItemPanel;
 	GUI_JPanel currentItemButtonsPanel;
-	
-	int TotalPrice = 0;
-	
+		
 	
 	public CustomerCheckoutStationGUI() 
 	{
 		/* Initialization of the GUI */
 		initalizeWindow();
 		initalizeTitlePanel();
-		
 		initalizeSpacerPanels();
 		initalizeCenterPanel();
-		
 		window.setVisible(true);
 	}
 	
@@ -44,11 +61,11 @@ public class CustomerCheckoutStationGUI
 	private void initalizeWindow() 
 	{
 		int topBottomMargin = 20;
-		window = new GUI_JFrame();
+		window = new GUI_JFrame("Customer Self Checkout Window");
 		window.setLayout(new BorderLayout(0,topBottomMargin));		
 	}
 	
-	/* Initialization of the title  */
+	/* Initialization of the title  panel*/
 	private void initalizeTitlePanel() 
 	{
 		/* Setup of the title's label */
@@ -76,33 +93,39 @@ public class CustomerCheckoutStationGUI
 	 *  */
 	private void initalizeSpacerPanels() 
 	{
+		// Setting for the spacer panels 
 		int leftRightSpaceing = 50;
 		int bottomSpaceing = 10;
 		Color SpacerColor = GUI_Color_Palette.LIGHT_BLUE;
 		
+		//Spacer panels
 		GUI_JPanel LeftSpacerPanel;
 		GUI_JPanel RightSpacerPanel;
 		GUI_JPanel bottomSpacerPanel;
 		
+		//Setting up the left spacer panel
 		LeftSpacerPanel = new GUI_JPanel();
 		LeftSpacerPanel.setBackground(SpacerColor);
 		LeftSpacerPanel.setPreferredSize(new Dimension(leftRightSpaceing,0));
 		
+		//Setting up the right spacer panel
 		RightSpacerPanel = new GUI_JPanel();
 		RightSpacerPanel.setBackground(SpacerColor);
 		RightSpacerPanel.setPreferredSize(new Dimension(leftRightSpaceing,0));
 		
+		//Setting up the bottom spacer panel
 		bottomSpacerPanel = new GUI_JPanel();
 		bottomSpacerPanel.setBackground(SpacerColor);
 		bottomSpacerPanel.setPreferredSize(new Dimension(bottomSpaceing,0));
 		
+		//Adding the spacer panels to the window 
 		window.add(LeftSpacerPanel, BorderLayout.WEST);
 		window.add(RightSpacerPanel, BorderLayout.EAST);
 		window.add(bottomSpacerPanel, BorderLayout.SOUTH);
 	}
 	
 	
-	
+	/* Initialization of the title panel for the item checkout Section*/
 	private void initalizeItemCheckoutTitlePanel() 
 	{
 		int height = 60;
@@ -110,51 +133,45 @@ public class CustomerCheckoutStationGUI
 		
 		GUI_JLabel checkoutTitleLabel = new GUI_JLabel();
 		
+		//Setting up the title label
 		checkoutTitleLabel.setText(checkoutTitleText.toUpperCase());
 		checkoutTitleLabel.setFont(GUI_Fonts.TITLE);
 		checkoutTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		
+		//Setting up the title panel 
 		itemCheckoutTitlePanel = new GUI_JPanel();
 		itemCheckoutTitlePanel.setBackground(GUI_Color_Palette.DARK_BROWN);
 		itemCheckoutTitlePanel.setPreferredSize(new Dimension(0,height));
-		
 		itemCheckoutTitlePanel.setLayout(new BorderLayout());
+		
+		//Adding the title label to the title panel
 		itemCheckoutTitlePanel.add(checkoutTitleLabel, BorderLayout.CENTER);
 	}
 
 	
-	private void initalizeItemCheckoutContentsPanel() 
+	/* Initialization item one's component*/
+	private void initalizeItemOneComponent()
 	{
-		int height = 60;
-		
+		int textMargins = 20;
 		int itemHeight = 20;
 		int itemBorderSize = 5;
 		
-		/* Item Content grid values*/
-		int gridLayoutRow = 4;
-		int gridLayoutColumn = 0;
-		int gridLayoutHorizontalSpacing = 0;
-		int gridLayoutVerticalSpacing = 20;
-		
-		int textMargins = 20;
-		
-		
 		/* Item one text and Label Setup*/
-		GUI_JLabel itemOneLabel = new GUI_JLabel();
+		itemOneLabel = new GUI_JLabel();
 		itemOneLabel.setText("Item #1");
 		itemOneLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemOneLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item one price and Label Setup*/
-		GUI_JLabel itemOnePriceLabel =  new GUI_JLabel();
+		itemOnePriceLabel =  new GUI_JLabel();
 		itemOnePriceLabel.setText("$0");
 		itemOnePriceLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemOnePriceLabel.setHorizontalAlignment(JLabel.RIGHT);
 		itemOnePriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item one panel Setup*/
-		GUI_JPanel itemOnePanel =  new GUI_JPanel();
+		itemOnePanel =  new GUI_JPanel();
 		itemOnePanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
 		itemOnePanel.setLayout(new GridLayout(0,2));
 		itemOnePanel.setPreferredSize(new Dimension(0,itemHeight));
@@ -162,80 +179,114 @@ public class CustomerCheckoutStationGUI
 		itemOnePanel.add(itemOneLabel);
 		itemOnePanel.add(itemOnePriceLabel);
 		
-		
-		
-		
+	}
+	
+	/* Initialization item two's component*/
+	private void initalizeItemTwoComponent()
+	{
+		int textMargins = 20;
+		int itemHeight = 20;
+		int itemBorderSize = 5;
 		
 		/* Item two text and Label Setup*/
-		GUI_JLabel itemTwoLabel = new GUI_JLabel();
+		itemTwoLabel = new GUI_JLabel();
 		itemTwoLabel.setText("Item #2");
 		itemTwoLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemTwoLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item two price and Label Setup*/
-		GUI_JLabel itemtwoPriceLabel =  new GUI_JLabel();
-		itemtwoPriceLabel.setText("$0");
-		itemtwoPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemtwoPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
-		itemtwoPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
+		itemTwoPriceLabel =  new GUI_JLabel();
+		itemTwoPriceLabel.setText("$0");
+		itemTwoPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
+		itemTwoPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
+		itemTwoPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item two panel Setup*/
-		GUI_JPanel itemTwoPanel = new GUI_JPanel();
+		itemTwoPanel = new GUI_JPanel();
 		itemTwoPanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
 		itemTwoPanel.setLayout(new GridLayout(0,2));
 		itemTwoPanel.setPreferredSize(new Dimension(0,itemHeight));
 		itemTwoPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
 		itemTwoPanel.add(itemTwoLabel);
-		itemTwoPanel.add(itemtwoPriceLabel);
-		
-		
+		itemTwoPanel.add(itemTwoPriceLabel);
+	}
 	
+	/* Initialization item three's component*/
+	private void initalizeItemThreeComponent()
+	{
+		int textMargins = 20;
+		int itemHeight = 20;
+		int itemBorderSize = 5;
+		
 		/* Item three text and Label Setup*/
-		GUI_JLabel itemThreeLabel = new GUI_JLabel();
+		itemThreeLabel = new GUI_JLabel();
 		itemThreeLabel.setText("Item #3");
 		itemThreeLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemThreeLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item three price and Label Setup*/
-		GUI_JLabel itemThreePriceLabel =  new GUI_JLabel();
+		itemThreePriceLabel =  new GUI_JLabel();
 		itemThreePriceLabel.setText("$0");
 		itemThreePriceLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemThreePriceLabel.setHorizontalAlignment(JLabel.RIGHT);
 		itemThreePriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item three panel Setup*/
-		GUI_JPanel itemThreePanel = new GUI_JPanel();
+		itemThreePanel = new GUI_JPanel();
 		itemThreePanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
 		itemThreePanel.setLayout(new GridLayout(0,2));
 		itemThreePanel.setPreferredSize(new Dimension(0,itemHeight));
 		itemThreePanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
 		itemThreePanel.add(itemThreeLabel);
 		itemThreePanel.add(itemThreePriceLabel);
-		
-		
+	}
+	
+	/* Initialization item fours's component*/
+	private void initalizeItemFourComponent()
+	{
+		int textMargins = 20;
+		int itemHeight = 20;
+		int itemBorderSize = 5;
 		
 		/* Item four text and Label Setup*/
-		GUI_JLabel itemFourLabel = new GUI_JLabel();
+		itemFourLabel = new GUI_JLabel();
 		itemFourLabel.setText("Item #4");
 		itemFourLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemFourLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item Four price and Label Setup*/
-		GUI_JLabel itemFourPriceLabel =  new GUI_JLabel();
+		itemFourPriceLabel =  new GUI_JLabel();
 		itemFourPriceLabel.setText("$0");
 		itemFourPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
 		itemFourPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
 		itemFourPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
 		
 		/* Item four panel Setup*/
-		GUI_JPanel itemFourPanel = new GUI_JPanel();
+		itemFourPanel = new GUI_JPanel();
 		itemFourPanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
 		itemFourPanel.setLayout(new GridLayout(0,2));
 		itemFourPanel.setPreferredSize(new Dimension(0,itemHeight));
 		itemFourPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
 		itemFourPanel.add(itemFourLabel);
 		itemFourPanel.add(itemFourPriceLabel);
+	}
+	
+	/* Initialization of the each item content panel for the item checkout Section*/
+	private void initalizeItemCheckoutContentsPanel() 
+	{
+		int height = 60;
 		
+		/* Item Content grid values*/
+		int gridLayoutRow = 4;
+		int gridLayoutColumn = 0;
+		int gridLayoutHorizontalSpacing = 0;
+		int gridLayoutVerticalSpacing = 20;
+		
+		/*Initializing Item components */
+		initalizeItemOneComponent();
+		initalizeItemTwoComponent();
+		initalizeItemThreeComponent();
+		initalizeItemFourComponent();
 		
 		/* Item Contents panel Setup*/
 		itemCheckoutContentsPanel = new GUI_JPanel();
@@ -270,7 +321,7 @@ public class CustomerCheckoutStationGUI
 		checkoutTotalLabel.setFont(GUI_Fonts.TITLE);
 		checkoutTotalLabel.setHorizontalAlignment(JLabel.CENTER);
 		
-		checkoutTotalPriceLabel.setText("$" + String.valueOf(TotalPrice).toUpperCase());
+		checkoutTotalPriceLabel.setText("$0");
 		checkoutTotalPriceLabel.setFont(GUI_Fonts.TITLE);
 		checkoutTotalPriceLabel.setHorizontalAlignment(JLabel.CENTER);
 		
@@ -365,11 +416,13 @@ public class CustomerCheckoutStationGUI
 		GUI_JButton addItemButton = new GUI_JButton();
 		addItemButton.setText(addItemButtonText.toUpperCase());
 		addItemButton.setBorder(BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BLUE,butttonMargin));
+		addItemButton.addActionListener(e -> addItemButtonAction());
 		
 		String payByCreditButtonText = "Pay by Credit";
 		GUI_JButton payByCreditButton = new GUI_JButton();
 		payByCreditButton.setText(payByCreditButtonText.toUpperCase());
 		payByCreditButton.setBorder(BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BLUE,butttonMargin));
+		payByCreditButton.addActionListener(e -> payByCreditButtonAction());
 		
 		currentItemButtonsPanel = new GUI_JPanel();
 		currentItemButtonsPanel.setBackground(GUI_Color_Palette.DARK_BLUE);
@@ -404,29 +457,46 @@ public class CustomerCheckoutStationGUI
 		currentItemCheckoutPanel.add(currentItemButtonsPanel, BorderLayout.SOUTH);
 	}
 	
+	/* Initialization of Center  panel which hold most of the content*/
 	private void initalizeCenterPanel() 
 	{
+		//Settings
 		int gridLayoutRow = 0;
 		int gridLayoutColumn = 2;
 		int gridLayoutHorizontalSpacing = 50;
 		int gridLayoutVerticallSpacing = 0;
 		
-		
+		//Initializing the item checkout Panel and current item/ payment panel
 		initalizeItemCheckoutPanel();
 		initalizeCurrentItemCheckoutPanel();
 		
+		//Setting up the center panel
 		centerPanel = new GUI_JPanel();
 		centerPanel.setBackground(GUI_Color_Palette.LIGHT_BLUE);
 		centerPanel.setPreferredSize(new Dimension(100,75));
 		centerPanel.setLayout(new GridLayout(gridLayoutRow,gridLayoutColumn,gridLayoutHorizontalSpacing,gridLayoutVerticallSpacing));	
 		
+		//Adding the item checkout Panel and current item/ payment panel to the center panel
 		centerPanel.add(itemCheckoutPanel);
 		centerPanel.add(currentItemCheckoutPanel);
 		
+		//Adding the center panel to the window
 		window.add(centerPanel, BorderLayout.CENTER);
 	}
 	
+	/*The action performed when addItemButton is pressed*/
+	private void addItemButtonAction()
+	{
+		
+	}
 	
+	/*The action performed when addItemButton is pressed*/
+	private void payByCreditButtonAction()
+	{
+		
+	}
+	
+	/*Only for testing the class*/
 	public static void main(String[] args) 
 	{
 		new CustomerCheckoutStationGUI();
