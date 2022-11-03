@@ -3,6 +3,7 @@ package com.diy.software;
 import com.diy.hardware.BarcodedProduct;
 import com.diy.hardware.DoItYourselfStation;
 import com.diy.hardware.external.ProductDatabases;
+import com.jimmyselectronics.OverloadException;
 import com.jimmyselectronics.necchi.Barcode;
 import com.jimmyselectronics.necchi.BarcodedItem;
 
@@ -23,7 +24,7 @@ public class ScanItem {
 	
 	
 	// Method that scans an item 
-	public boolean scanItems(BarcodedItem item) {
+	public void scanItems(BarcodedItem item) throws OverloadException, WeightDiscrepancyException {
 		
 		if (station.scanner.scan(item) && customerSession && !blocked) {
 			blocked = true;
@@ -46,7 +47,7 @@ public class ScanItem {
 	}
 	
 	
-	public void testWeightDiscrepancy(double actualWeight, double expectedWeight, double sens){
+	public void testWeightDiscrepancy(double actualWeight, double expectedWeight, double sens) throws WeightDiscrepancyException{
 		
 		// Checks if new weight is equal to expected weight with regards to sensitivity
 		if ((actualWeight < expectedWeight - sens) || (actualWeight > expectedWeight + sens)) {
