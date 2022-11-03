@@ -3,7 +3,9 @@ package com.GUI;
 import java.awt.*;
 import javax.swing.*;
 
-public class AttendantCheckoutStaionGUI 
+import com.diy.software.Attendant;
+
+public class AttendantCheckoutStationGUI 
 {
 	GUI_JFrame window;
 	
@@ -13,8 +15,10 @@ public class AttendantCheckoutStaionGUI
 	
 	/* Center Section Variables*/
 	GUI_JPanel centerPanel;
+	Attendant attendant;
+	GUI_JPanel weightDiscrepancyPanel;
 	
-	public AttendantCheckoutStaionGUI() 
+	public AttendantCheckoutStationGUI(Attendant attendant) 
 	{
 		/* Initialization of the GUI */
 		initalizeWindow();
@@ -22,6 +26,11 @@ public class AttendantCheckoutStaionGUI
 		initalizeSpacerPanels();
 		initalizeCenterPanel();
 		window.setVisible(true);
+		
+		this.attendant = attendant;
+		
+		//The update loop for the attendant GUI
+		attendantGUIUpdateLoop();
 	}
 	
 	/* Initialization of the GUI window*/
@@ -29,7 +38,7 @@ public class AttendantCheckoutStaionGUI
 	{
 		int topBottomMargin = 20;
 		window = new GUI_JFrame("Attendant Self Checkout Window");
-		window.setLayout(new BorderLayout(0,topBottomMargin));		
+		window.setLayout(new BorderLayout(0,topBottomMargin));	
 	}
 	
 	/* Initialization of the title  panel*/
@@ -95,25 +104,68 @@ public class AttendantCheckoutStaionGUI
 	private void initalizeCenterPanel() 
 	{
 		//Settings 
-		int gridLayoutRow = 0;
-		int gridLayoutColumn = 2;
-		int gridLayoutHorizontalSpacing = 50;
-		int gridLayoutVerticallSpacing = 0;
-		
+
 		//Setting up the center panel
 		centerPanel = new GUI_JPanel();
 		centerPanel.setBackground(GUI_Color_Palette.LIGHT_BLUE);
 		centerPanel.setPreferredSize(new Dimension(100,75));
-		centerPanel.setLayout(new GridLayout(gridLayoutRow,gridLayoutColumn,gridLayoutHorizontalSpacing,gridLayoutVerticallSpacing));	
+		centerPanel.setLayout(new BorderLayout());
+		
+		
+		//Setting up the weight discrepancy label
+		int border = 10;
+		GUI_JLabel weightDiscrepancyLabel = new GUI_JLabel();
+		weightDiscrepancyLabel.setText("Weight Discrepancy Alert".toUpperCase());
+		weightDiscrepancyLabel.setFont(GUI_Fonts.TITLE);
+		weightDiscrepancyLabel.setHorizontalAlignment(JLabel.CENTER);
+		weightDiscrepancyLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, border));
+		
+		//Weight discrepancy panel
+		int panelMargin = 210;
+		weightDiscrepancyPanel = new GUI_JPanel();
+		weightDiscrepancyPanel.setLayout(new BorderLayout());
+		weightDiscrepancyPanel.setBackground(GUI_Color_Palette.DARK_BLUE);
+		weightDiscrepancyPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BLUE, panelMargin));
+		
+		//Adding weight discrepancy label to panel
+		weightDiscrepancyPanel.add(weightDiscrepancyLabel, BorderLayout.CENTER);
+		
+		//Adding weight discrepancy panel to centerPanel
+		centerPanel.add(weightDiscrepancyPanel, BorderLayout.CENTER);
 		
 		//Adding the center panel to the window
 		window.add(centerPanel, BorderLayout.CENTER);
 	}
 	
+	/*Checks if there is a Weight Discrepancy and enable the warning panel*/
+	private void checkAndDisplayWeightDiscrepancy()
+	{
+		if (attendant.signalWeightDisc == true)
+		{
+			weightDiscrepancyPanel.setVisible(true);
+		}
+		else
+		{
+			weightDiscrepancyPanel.setVisible(false);
+		}
+	}
+	
+	//An loop for update the attendant GUI
+	private void attendantGUIUpdateLoop()
+	{
+		while(true)
+		{
+			checkAndDisplayWeightDiscrepancy();
+		}
+	}
+	
+	
 	
 	/*Only for testing the class*/
 	public static void main(String[] args) 
 	{
-		new AttendantCheckoutStaionGUI();
+		Attendant attendant = new Attendant();
+		//attendant.signalWeightDisc = true;
+		new AttendantCheckoutStationGUI(attendant);
 	}
 }
