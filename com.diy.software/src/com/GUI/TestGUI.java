@@ -30,7 +30,7 @@ public class TestGUI
 		
 		panel.add(button);
 		
-		GUI_Jframe window = new GUI_Jframe();
+		GUI_JFrame window = new GUI_JFrame();
 		//Add a panel to the window
 		window.add(panel, BorderLayout.CENTER);
 

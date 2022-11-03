@@ -2,15 +2,14 @@ package com.GUI;
 
 import java.awt.*;
 import javax.swing.*;
-import com.GUI.*;
-public class CheckoutStationGUI 
+public class CustomerCheckoutStationGUI 
 {
 
 	GUI_JFrame window;
 	
 	/* Title Section Variables*/
 	GUI_JPanel titlePanel;
-	GUI_JPanel titleLabel;
+	GUI_JLabel titleLabel;
 		
 	GUI_JPanel centerPanel;
 	
@@ -29,7 +28,7 @@ public class CheckoutStationGUI
 	int TotalPrice = 0;
 	
 	
-	public CheckoutStationGUI() 
+	public CustomerCheckoutStationGUI() 
 	{
 		/* Initialization of the GUI */
 		initalizeWindow();
@@ -430,6 +429,6 @@ public class CheckoutStationGUI
 	
 	public static void main(String[] args) 
 	{
-		new CheckoutStationGUI();
+		new CustomerCheckoutStationGUI();
 	}
 }
