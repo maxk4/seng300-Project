@@ -15,5 +15,6 @@ public class GUI_JLabel extends JLabel
 		this.setForeground(Color.WHITE);
 		this.setFont(new Font("Franklin Gothic",Font.PLAIN, 10));
 	}
+	
 
 }
