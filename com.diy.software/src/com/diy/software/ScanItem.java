@@ -14,12 +14,13 @@ public class ScanItem {
 	public float totalPrice = 0; 			// Maybe we have this value in a different class? 
 	public boolean blocked = false;			// This one too? Used to tell system to block further customer interactions
 	public boolean customerSession = true;	// Move this one somewhere too? Used to tell system if there is a customer session
-	public boolean signalWeightDisc = false;	// Boolean for if signal should be sent to IO's about weight discrepancy
+	public Attendant attendant;
 	
 	
 	// Constructor
-	public ScanItem(DoItYourselfStation station) {
+	public ScanItem(DoItYourselfStation station, Attendant attendant) {
 		this.station = station;
+		this.attendant = attendant;
 	}
 	
 	
@@ -53,7 +54,7 @@ public class ScanItem {
 		if ((actualWeight < expectedWeight - sens) || (actualWeight > expectedWeight + sens)) {
 			blocked = true;
 
-			signalWeightDisc = true;
+			attendant.signalWeightDisc = true;
 			
 			// System.out.println("Bagging Area Weight Discrepancy Detected...");
 

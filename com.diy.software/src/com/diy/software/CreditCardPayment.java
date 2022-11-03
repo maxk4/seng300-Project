@@ -1,6 +1,11 @@
 package com.diy.software;
 
+import java.io.IOException;
+
 import com.diy.hardware.*;
+import com.diy.hardware.external.CardIssuer;
+import com.jimmyselectronics.opeechee.Card;
+import com.jimmyselectronics.opeechee.Card.CardData;
 
 /**
  * Implements the use case: pay by credit
@@ -10,8 +15,12 @@ public class CreditCardPayment {
      * @param pin
      * @param card
      */
+	 double amountDue;
+	 static CardIssuer bank = new CardIssuer("Bank",4);
+	
     // Signals the insertion of a credit card and PIN
-    static void payWithCredit(String pin, Card card) {
+    public void payWithCredit(String pin, Card card, double totalPrice) throws IOException 
+    {
 
         // Validates the PIN against the credit card.
         CardData cardInsertData = card.insert(pin);
@@ -29,7 +38,7 @@ public class CreditCardPayment {
         }
     }
 
-    static CardIssuer bank = new CardIssuer();
-    double amountDue = totalPrice;
+    
+   
 
 }
