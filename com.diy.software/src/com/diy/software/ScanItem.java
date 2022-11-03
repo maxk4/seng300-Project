@@ -54,7 +54,7 @@ public class ScanItem {
 		if ((actualWeight < expectedWeight - sens) || (actualWeight > expectedWeight + sens)) {
 			blocked = true;
 
-			attendant.signalWeightDisc = true;
+			attendant.signalWeightDisc();
 			
 			// System.out.println("Bagging Area Weight Discrepancy Detected...");
 

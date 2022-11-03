@@ -1,7 +1,21 @@
 package com.GUI;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
+
+import com.diy.hardware.BarcodedProduct;
+import com.diy.hardware.DoItYourselfStation;
+import com.diy.hardware.external.ProductDatabases;
+import com.diy.simulation.Customer;
+import com.diy.software.Attendant;
+import com.diy.software.ScanItem;
+import com.jimmyselectronics.Item;
+import com.jimmyselectronics.necchi.Barcode;
+import com.jimmyselectronics.necchi.BarcodedItem;
+import com.jimmyselectronics.necchi.Numeral;
 public class CustomerCheckoutStationGUI 
 {
 
@@ -499,6 +513,41 @@ public class CustomerCheckoutStationGUI
 	/*Only for testing the class*/
 	public static void main(String[] args) 
 	{
+		DoItYourselfStation DIY_Station = new DoItYourselfStation();
+		DIY_Station.plugIn();	
+		DIY_Station.turnOn();
+				
+		Customer customer = new Customer();
+		
+		Barcode barcodeOne = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
+		BarcodedItem itemOne = new BarcodedItem(barcodeOne,10);
+		BarcodedProduct itemOneProduct = new BarcodedProduct(barcodeOne,"ITEM 1",5,10);
+		
+		Barcode barcodeTwo = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
+		BarcodedItem itemTwo  = new BarcodedItem(barcodeTwo,10);
+		BarcodedProduct itemTwoProduct = new BarcodedProduct(barcodeTwo,"ITEM 2",5,10);
+		
+		Barcode barcodeThree = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
+		BarcodedItem itemThree  = new BarcodedItem(barcodeThree,10);
+		BarcodedProduct itemThreeProduct = new BarcodedProduct(barcodeThree,"ITEM 3",5,10);
+		
+		customer.shoppingCart.add(itemOne);
+		customer.shoppingCart.add(itemTwo);
+		customer.shoppingCart.add(itemThree);
+		
+		
+		//attendant.signalWeightDisc = true;
+		
+		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemOneProduct);
+		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemTwoProduct);
+		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemThreeProduct);
+		
+		
 		new CustomerCheckoutStationGUI();
+		AttendantCheckoutStationGUI attendantGUI  = new AttendantCheckoutStationGUI();
+		
+		Attendant attendant = new Attendant(attendantGUI);
+		
+		ScanItem scanItem = new ScanItem(DIY_Station,attendant);
 	}
 }

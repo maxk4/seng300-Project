@@ -18,7 +18,7 @@ public class AttendantCheckoutStationGUI
 	Attendant attendant;
 	GUI_JPanel weightDiscrepancyPanel;
 	
-	public AttendantCheckoutStationGUI(Attendant attendant) 
+	public AttendantCheckoutStationGUI() 
 	{
 		/* Initialization of the GUI */
 		initalizeWindow();
@@ -26,11 +26,7 @@ public class AttendantCheckoutStationGUI
 		initalizeSpacerPanels();
 		initalizeCenterPanel();
 		window.setVisible(true);
-		
-		this.attendant = attendant;
-		
-		//The update loop for the attendant GUI
-		attendantGUIUpdateLoop();
+
 	}
 	
 	/* Initialization of the GUI window*/
@@ -126,6 +122,7 @@ public class AttendantCheckoutStationGUI
 		weightDiscrepancyPanel.setLayout(new BorderLayout());
 		weightDiscrepancyPanel.setBackground(GUI_Color_Palette.DARK_BLUE);
 		weightDiscrepancyPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BLUE, panelMargin));
+		weightDiscrepancyPanel.setVisible(false);
 		
 		//Adding weight discrepancy label to panel
 		weightDiscrepancyPanel.add(weightDiscrepancyLabel, BorderLayout.CENTER);
@@ -137,35 +134,18 @@ public class AttendantCheckoutStationGUI
 		window.add(centerPanel, BorderLayout.CENTER);
 	}
 	
-	/*Checks if there is a Weight Discrepancy and enable the warning panel*/
-	private void checkAndDisplayWeightDiscrepancy()
+	/*shows the Weight Discrepancy  warning panel*/
+	public void displayWeightDiscrepancy()
 	{
-		if (attendant.signalWeightDisc == true)
-		{
-			weightDiscrepancyPanel.setVisible(true);
-		}
-		else
-		{
-			weightDiscrepancyPanel.setVisible(false);
-		}
+		weightDiscrepancyPanel.setVisible(true);
 	}
-	
-	//An loop for update the attendant GUI
-	private void attendantGUIUpdateLoop()
-	{
-		while(true)
-		{
-			checkAndDisplayWeightDiscrepancy();
-		}
-	}
-	
 	
 	
 	/*Only for testing the class*/
 	public static void main(String[] args) 
 	{
-		Attendant attendant = new Attendant();
-		//attendant.signalWeightDisc = true;
-		new AttendantCheckoutStationGUI(attendant);
+		AttendantCheckoutStationGUI GUI = new AttendantCheckoutStationGUI();
+		Attendant attendant = new Attendant(GUI);
+		attendant.signalWeightDisc();
 	}
 }

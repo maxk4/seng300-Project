@@ -1,12 +1,19 @@
 package com.diy.software;
 
+import com.GUI.AttendantCheckoutStationGUI;
+
 public class Attendant 
 {
-	public boolean signalWeightDisc = false;	// Boolean for if signal should be sent to IO's about weight discrepancy
-
-	public Attendant() 
+	private AttendantCheckoutStationGUI GUI;
+	
+	public Attendant(AttendantCheckoutStationGUI GUI) 
 	{
-		
+		this.GUI = GUI;
+	}
+	
+	public void signalWeightDisc()
+	{
+		GUI.displayWeightDiscrepancy();
 	}
 
 }
