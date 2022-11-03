@@ -7,18 +7,14 @@ import javax.swing.JFrame;
 /*This is an extension of JFrame in order to handle the setting up of a JFrame Window
  * */
 @SuppressWarnings("serial")
-public class GUI_Jframe extends JFrame
-{
-
-	//JFrames title
-	private String windowTitle = "Self CheckOut System";
-	
+public class GUI_JFrame extends JFrame
+{	
 	//JFrames Size
 	private int windowSizeX = 1280;
 	private int windowSizeY = 720;
 	
 	//JFrame Setup
-	public GUI_Jframe() 
+	public GUI_JFrame(String windowTitle) 
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(windowTitle);
