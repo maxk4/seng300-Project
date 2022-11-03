@@ -1,21 +1,16 @@
 package com.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-
+import java.awt.*;
+import javax.swing.*;
+import com.GUI.*;
 public class CheckoutStationGUI 
 {
 
-	GUI_Jframe window;
+	GUI_JFrame window;
 	
 	/* Title Section Variables*/
 	GUI_JPanel titlePanel;
-	GUI_JLabel titleLabel;
+	GUI_JPanel titleLabel;
 		
 	GUI_JPanel centerPanel;
 	
@@ -50,7 +45,7 @@ public class CheckoutStationGUI
 	private void initalizeWindow() 
 	{
 		int topBottomMargin = 20;
-		window = new GUI_Jframe();
+		window = new GUI_JFrame();
 		window.setLayout(new BorderLayout(0,topBottomMargin));		
 	}
 	

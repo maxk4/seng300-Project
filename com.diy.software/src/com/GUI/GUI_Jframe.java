@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 /*This is an extension of JFrame in order to handle the setting up of a JFrame Window
  * */
 @SuppressWarnings("serial")
-public class GUI_Jframe extends JFrame
+public class GUI_JFrame extends JFrame
 {
 
 	//JFrames title
@@ -18,7 +18,7 @@ public class GUI_Jframe extends JFrame
 	private int windowSizeY = 720;
 	
 	//JFrame Setup
-	public GUI_Jframe() 
+	public GUI_JFrame() 
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(windowTitle);
