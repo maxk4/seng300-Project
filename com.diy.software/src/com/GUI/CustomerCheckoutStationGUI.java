@@ -1,6 +1,7 @@
 package com.GUI;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,14 @@ import com.diy.hardware.BarcodedProduct;
 import com.diy.hardware.DoItYourselfStation;
 import com.diy.hardware.external.ProductDatabases;
 import com.diy.simulation.Customer;
+import com.diy.simulation.Wallet;
 import com.diy.software.Attendant;
+import com.diy.software.CreditCardPayment;
 import com.diy.software.ScanItem;
 import com.jimmyselectronics.necchi.Barcode;
 import com.jimmyselectronics.necchi.BarcodedItem;
 import com.jimmyselectronics.necchi.Numeral;
+import com.jimmyselectronics.opeechee.Card;
 public class CustomerCheckoutStationGUI 
 {
 
@@ -51,12 +55,14 @@ public class CustomerCheckoutStationGUI
 	private int total;
 	
 	private ScanItem scanItem;
+	private CreditCardPayment creditCardPayment;
 		
 	
-	public CustomerCheckoutStationGUI(Customer customer, ScanItem scanItem) 
+	public CustomerCheckoutStationGUI(Customer customer, ScanItem scanItem, CreditCardPayment creditCardPayment) 
 	{
 		this.customer = customer;
 		this.scanItem = scanItem;
+		this.creditCardPayment = creditCardPayment;
 		
 		/* Initialization of the GUI */
 		initalizeWindow();
@@ -169,8 +175,6 @@ public class CustomerCheckoutStationGUI
 		itemCheckoutContentsPanel.setLayout(new BorderLayout());
 		itemCheckoutContentsPanel.setBackground(GUI_Color_Palette.DARK_BROWN);
 		itemCheckoutContentsPanel.setPreferredSize(new Dimension(0,height));
-		
-		
 	}
 	
 	
@@ -379,9 +383,12 @@ public class CustomerCheckoutStationGUI
 	}
 	
 	/*The action performed when addItemButton is pressed*/
-	private void payByCreditButtonAction()
+	private void payByCreditButtonAction() 
 	{
 		
+		Card card  = customer.wallet.cards.get(0);
+		
+		new CustomerPaymentGUI(creditCardPayment, card, total);
 	}
 	
 	private void updateItemCheckOutGUI()
@@ -433,6 +440,7 @@ public class CustomerCheckoutStationGUI
 		DIY_Station.turnOn();
 				
 		Customer customer = new Customer();
+		customer.wallet = new Wallet();
 		
 		Barcode barcodeOne = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
 		BarcodedItem itemOne = new BarcodedItem(barcodeOne,10);
@@ -462,7 +470,8 @@ public class CustomerCheckoutStationGUI
 		Attendant attendant = new Attendant(attendantGUI);
 		
 		ScanItem scanItem = new ScanItem(DIY_Station,attendant);
+		CreditCardPayment payment  = new CreditCardPayment();
 		
-		new CustomerCheckoutStationGUI(customer,scanItem);		
+		new CustomerCheckoutStationGUI(customer,scanItem,payment);		
 	}
 }

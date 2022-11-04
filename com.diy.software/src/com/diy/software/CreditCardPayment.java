@@ -19,11 +19,19 @@ public class CreditCardPayment {
 	 static CardIssuer bank = new CardIssuer("Bank",4);
 	
     // Signals the insertion of a credit card and PIN
-    public void payWithCredit(String pin, Card card, double totalPrice) throws IOException 
+    public boolean payWithCredit(String pin, Card card, double totalPrice)   
     {
 
         // Validates the PIN against the credit card.
-        CardData cardInsertData = card.insert(pin);
+        CardData cardInsertData;
+		try
+		{
+			cardInsertData = card.insert(pin);
+		} 
+		catch (IOException e) 
+		{
+			return false;
+		}
         // Signals to the Bank the details of the credit card and the amount to be
         // charged
         long authorizeHoldNumber = bank.authorizeHold(cardInsertData.getNumber(), totalPrice);
@@ -32,9 +40,16 @@ public class CreditCardPayment {
         boolean transactionSucceded = bank.postTransaction(cardInsertData.getNumber(), authorizeHoldNumber, totalPrice);
         // If the Bank does not approve the transaction, the remaining amount due will
         // not change.
-        if (transactionSucceded) {
+        if (transactionSucceded) 
+        {
             // Updates the amount due displayed to the customer.
             amountDue -= totalPrice;
+            
+            return true;
+        }
+        else
+        {
+        	return false;
         }
     }
 
