@@ -12,7 +12,6 @@ import com.diy.hardware.external.ProductDatabases;
 import com.diy.simulation.Customer;
 import com.diy.software.Attendant;
 import com.diy.software.ScanItem;
-import com.jimmyselectronics.Item;
 import com.jimmyselectronics.necchi.Barcode;
 import com.jimmyselectronics.necchi.BarcodedItem;
 import com.jimmyselectronics.necchi.Numeral;
@@ -22,47 +21,43 @@ public class CustomerCheckoutStationGUI
 	GUI_JFrame window;
 	
 	/* Title Section Variables*/
-	GUI_JPanel titlePanel;
-	GUI_JLabel titleLabel;
+	private GUI_JPanel titlePanel;
+	private GUI_JLabel titleLabel;
 	
 	/* Center Section Variables*/
-	GUI_JPanel centerPanel;
+	private GUI_JPanel centerPanel;
 	
 	/* Item Checkout Section Variables*/
-	GUI_JPanel itemCheckoutTitlePanel;
-	GUI_JPanel itemCheckoutContentsPanel;
-	GUI_JPanel itemCheckoutTotalPanel;
-	GUI_JPanel itemCheckoutPanel;
-	
-	/*Item one component variable */
-	GUI_JLabel itemOneLabel;
-	GUI_JLabel itemOnePriceLabel;
-	GUI_JPanel itemOnePanel;
-	
-	/*Item two component variable */
-	GUI_JLabel itemTwoLabel;
-	GUI_JLabel itemTwoPriceLabel;
-	GUI_JPanel itemTwoPanel;
-	
-	/*Item three component variable */
-	GUI_JLabel itemThreeLabel;
-	GUI_JLabel itemThreePriceLabel;
-	GUI_JPanel itemThreePanel;
-	
-	/*Item four component variable */
-	GUI_JLabel itemFourLabel;
-	GUI_JLabel itemFourPriceLabel;
-	GUI_JPanel itemFourPanel;
+	private GUI_JPanel itemCheckoutTitlePanel;
+	private GUI_JPanel itemCheckoutContentsPanel;
+	private GUI_JPanel itemCheckoutTotalPanel;
+	private GUI_JPanel itemCheckoutPanel;
+	private GUI_JLabel checkoutTotalPriceLabel;
 	
 	/* Current Item Section Variables*/
-	GUI_JPanel currentItemCheckoutPanel;
-	GUI_JPanel currentItemTitlePanel;
-	GUI_JPanel currentItemPanel;
-	GUI_JPanel currentItemButtonsPanel;
+	private GUI_JPanel currentItemCheckoutPanel;
+	private GUI_JPanel currentItemTitlePanel;
+	private GUI_JPanel currentItemPanel;
+	private GUI_JPanel currentItemButtonsPanel;
+	private GUI_JLabel currentItemLabel;
+	private GUI_JLabel currenttemPriceLabel;
+	private GUI_JButton addItemButton;
+	
+	private Customer customer;
+	private List<String> checkOut = new ArrayList<>();
+	
+	private int currentItemIndex = 0;
+	
+	private int total;
+	
+	private ScanItem scanItem;
 		
 	
-	public CustomerCheckoutStationGUI() 
+	public CustomerCheckoutStationGUI(Customer customer, ScanItem scanItem) 
 	{
+		this.customer = customer;
+		this.scanItem = scanItem;
+		
 		/* Initialization of the GUI */
 		initalizeWindow();
 		initalizeTitlePanel();
@@ -163,156 +158,19 @@ public class CustomerCheckoutStationGUI
 		itemCheckoutTitlePanel.add(checkoutTitleLabel, BorderLayout.CENTER);
 	}
 
-	
-	/* Initialization item one's component*/
-	private void initalizeItemOneComponent()
-	{
-		int textMargins = 20;
-		int itemHeight = 20;
-		int itemBorderSize = 5;
-		
-		/* Item one text and Label Setup*/
-		itemOneLabel = new GUI_JLabel();
-		itemOneLabel.setText("Item #1");
-		itemOneLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemOneLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item one price and Label Setup*/
-		itemOnePriceLabel =  new GUI_JLabel();
-		itemOnePriceLabel.setText("$0");
-		itemOnePriceLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemOnePriceLabel.setHorizontalAlignment(JLabel.RIGHT);
-		itemOnePriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item one panel Setup*/
-		itemOnePanel =  new GUI_JPanel();
-		itemOnePanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
-		itemOnePanel.setLayout(new GridLayout(0,2));
-		itemOnePanel.setPreferredSize(new Dimension(0,itemHeight));
-		itemOnePanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
-		itemOnePanel.add(itemOneLabel);
-		itemOnePanel.add(itemOnePriceLabel);
-		
-	}
-	
-	/* Initialization item two's component*/
-	private void initalizeItemTwoComponent()
-	{
-		int textMargins = 20;
-		int itemHeight = 20;
-		int itemBorderSize = 5;
-		
-		/* Item two text and Label Setup*/
-		itemTwoLabel = new GUI_JLabel();
-		itemTwoLabel.setText("Item #2");
-		itemTwoLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemTwoLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item two price and Label Setup*/
-		itemTwoPriceLabel =  new GUI_JLabel();
-		itemTwoPriceLabel.setText("$0");
-		itemTwoPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemTwoPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
-		itemTwoPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item two panel Setup*/
-		itemTwoPanel = new GUI_JPanel();
-		itemTwoPanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
-		itemTwoPanel.setLayout(new GridLayout(0,2));
-		itemTwoPanel.setPreferredSize(new Dimension(0,itemHeight));
-		itemTwoPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
-		itemTwoPanel.add(itemTwoLabel);
-		itemTwoPanel.add(itemTwoPriceLabel);
-	}
-	
-	/* Initialization item three's component*/
-	private void initalizeItemThreeComponent()
-	{
-		int textMargins = 20;
-		int itemHeight = 20;
-		int itemBorderSize = 5;
-		
-		/* Item three text and Label Setup*/
-		itemThreeLabel = new GUI_JLabel();
-		itemThreeLabel.setText("Item #3");
-		itemThreeLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemThreeLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item three price and Label Setup*/
-		itemThreePriceLabel =  new GUI_JLabel();
-		itemThreePriceLabel.setText("$0");
-		itemThreePriceLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemThreePriceLabel.setHorizontalAlignment(JLabel.RIGHT);
-		itemThreePriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item three panel Setup*/
-		itemThreePanel = new GUI_JPanel();
-		itemThreePanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
-		itemThreePanel.setLayout(new GridLayout(0,2));
-		itemThreePanel.setPreferredSize(new Dimension(0,itemHeight));
-		itemThreePanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
-		itemThreePanel.add(itemThreeLabel);
-		itemThreePanel.add(itemThreePriceLabel);
-	}
-	
-	/* Initialization item fours's component*/
-	private void initalizeItemFourComponent()
-	{
-		int textMargins = 20;
-		int itemHeight = 20;
-		int itemBorderSize = 5;
-		
-		/* Item four text and Label Setup*/
-		itemFourLabel = new GUI_JLabel();
-		itemFourLabel.setText("Item #4");
-		itemFourLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemFourLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item Four price and Label Setup*/
-		itemFourPriceLabel =  new GUI_JLabel();
-		itemFourPriceLabel.setText("$0");
-		itemFourPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
-		itemFourPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
-		itemFourPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BROWN, textMargins));
-		
-		/* Item four panel Setup*/
-		itemFourPanel = new GUI_JPanel();
-		itemFourPanel.setBackground(GUI_Color_Palette.LIGHT_BROWN);
-		itemFourPanel.setLayout(new GridLayout(0,2));
-		itemFourPanel.setPreferredSize(new Dimension(0,itemHeight));
-		itemFourPanel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, itemBorderSize));
-		itemFourPanel.add(itemFourLabel);
-		itemFourPanel.add(itemFourPriceLabel);
-	}
-	
+
 	/* Initialization of the each item content panel for the item checkout Section*/
 	private void initalizeItemCheckoutContentsPanel() 
 	{
 		int height = 60;
-		
-		/* Item Content grid values*/
-		int gridLayoutRow = 4;
-		int gridLayoutColumn = 0;
-		int gridLayoutHorizontalSpacing = 0;
-		int gridLayoutVerticalSpacing = 20;
-		
-		/*Initializing Item components */
-		initalizeItemOneComponent();
-		initalizeItemTwoComponent();
-		initalizeItemThreeComponent();
-		initalizeItemFourComponent();
-		
+
 		/* Item Contents panel Setup*/
 		itemCheckoutContentsPanel = new GUI_JPanel();
-		itemCheckoutContentsPanel.setLayout(new GridLayout(gridLayoutRow,gridLayoutColumn, gridLayoutHorizontalSpacing, gridLayoutVerticalSpacing));
+		itemCheckoutContentsPanel.setLayout(new BorderLayout());
 		itemCheckoutContentsPanel.setBackground(GUI_Color_Palette.DARK_BROWN);
 		itemCheckoutContentsPanel.setPreferredSize(new Dimension(0,height));
 		
-		/* Adding the Item panels to the Contents panel*/
-		itemCheckoutContentsPanel.add(itemOnePanel);
-		itemCheckoutContentsPanel.add(itemTwoPanel);
-		itemCheckoutContentsPanel.add(itemThreePanel);
-		itemCheckoutContentsPanel.add(itemFourPanel);
+		
 	}
 	
 	
@@ -329,7 +187,7 @@ public class CustomerCheckoutStationGUI
 		String checkoutTotalText  = "Total"; 
 		
 		GUI_JLabel checkoutTotalLabel = new GUI_JLabel();
-		GUI_JLabel checkoutTotalPriceLabel = new GUI_JLabel();
+		checkoutTotalPriceLabel = new GUI_JLabel();
 		
 		checkoutTotalLabel.setText(checkoutTotalText.toUpperCase());
 		checkoutTotalLabel.setFont(GUI_Fonts.TITLE);
@@ -389,23 +247,20 @@ public class CustomerCheckoutStationGUI
 		
 		currentItemTitlePanel.setLayout(new BorderLayout());
 		currentItemTitlePanel.add(currentItemTitleLabel, BorderLayout.CENTER);
-		
 	}
 	
 	private void initalizeCurrentItemPanel() 
 	{
 		int textMargin = 20;
 		
-		String currentItemText  = "Item #5"; 
-		GUI_JLabel currentItemLabel = new GUI_JLabel();
-		currentItemLabel.setText(currentItemText.toUpperCase());
+		currentItemLabel = new GUI_JLabel();
+		currentItemLabel.setText("");
 		currentItemLabel.setFont(GUI_Fonts.SUB_HEADER);
 		currentItemLabel.setHorizontalAlignment(JLabel.LEFT);
 		currentItemLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, textMargin));
 		
-		String currentItemPriceText  = "$0"; 
-		GUI_JLabel currenttemPriceLabel =  new GUI_JLabel();
-		currenttemPriceLabel.setText(currentItemPriceText);
+		currenttemPriceLabel =  new GUI_JLabel();
+		currenttemPriceLabel.setText("");
 		currenttemPriceLabel.setFont(GUI_Fonts.SUB_HEADER);
 		currenttemPriceLabel.setHorizontalAlignment(JLabel.RIGHT);
 		currenttemPriceLabel.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, textMargin));
@@ -418,7 +273,6 @@ public class CustomerCheckoutStationGUI
 		currentItemPanel.setLayout(new GridLayout(0,2));
 		currentItemPanel.add(currentItemLabel);
 		currentItemPanel.add(currenttemPriceLabel);
-		
 	}
 	
 	private void initalizeCurrentItemButtonPanel() 
@@ -426,8 +280,8 @@ public class CustomerCheckoutStationGUI
 		int height = 250;
 		int butttonMargin = 25;
 		
-		String addItemButtonText = "Add Item";
-		GUI_JButton addItemButton = new GUI_JButton();
+		String addItemButtonText = "Start Scaning";
+		addItemButton = new GUI_JButton();
 		addItemButton.setText(addItemButtonText.toUpperCase());
 		addItemButton.setBorder(BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BLUE,butttonMargin));
 		addItemButton.addActionListener(e -> addItemButtonAction());
@@ -500,14 +354,75 @@ public class CustomerCheckoutStationGUI
 	
 	/*The action performed when addItemButton is pressed*/
 	private void addItemButtonAction()
-	{
+	{	
+		if (currentItemIndex >=  customer.shoppingCart.size()) 
+		{
+			currentItemLabel.setText("");
+			currenttemPriceLabel.setText("");
+			return;
+		}
 		
+		if(currentItemIndex < customer.shoppingCart.size()) 
+		{
+			checkOut.add(getCurrentProduct().getDescription());
+			scanItem.scanItems(getCurrentItem());
+			
+			total += getCurrentProduct().getPrice();
+			
+			updateCurrentItemGUI();
+			updateTotalGUI();
+			updateItemCheckOutGUI();
+			
+			currentItemIndex ++;
+		}
+				
 	}
 	
 	/*The action performed when addItemButton is pressed*/
 	private void payByCreditButtonAction()
 	{
 		
+	}
+	
+	private void updateItemCheckOutGUI()
+	{
+		JList list = new JList(checkOut.toArray());
+		
+		list.setVisibleRowCount(4);
+		list.setFont(GUI_Fonts.SUB_HEADER);
+		list.setBackground(GUI_Color_Palette.DARK_BROWN);
+		list.setForeground(GUI_Color_Palette.WHITE);
+		list.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BROWN, 20));
+		list.setFixedCellHeight(50);
+		list.setFixedCellWidth(100);
+		 
+		itemCheckoutContentsPanel.add(list,BorderLayout.CENTER);
+	}
+	
+	
+	private void updateCurrentItemGUI()
+	{
+		BarcodedProduct currentProduct = getCurrentProduct();
+		
+		currentItemLabel.setText(currentProduct.getDescription());
+		currenttemPriceLabel.setText("$" + String.valueOf(currentProduct.getPrice()));
+		
+		addItemButton.setText("Scan Next Item".toUpperCase());
+	}
+	
+	private void updateTotalGUI()
+	{		
+		checkoutTotalPriceLabel.setText("$" + total);
+	}
+	
+	private BarcodedItem getCurrentItem()
+	{
+		return (BarcodedItem) customer.shoppingCart.get(currentItemIndex);
+	}
+	
+	private BarcodedProduct getCurrentProduct()
+	{
+		return ProductDatabases.BARCODED_PRODUCT_DATABASE.get(getCurrentItem().getBarcode());
 	}
 	
 	/*Only for testing the class*/
@@ -521,15 +436,16 @@ public class CustomerCheckoutStationGUI
 		
 		Barcode barcodeOne = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
 		BarcodedItem itemOne = new BarcodedItem(barcodeOne,10);
-		BarcodedProduct itemOneProduct = new BarcodedProduct(barcodeOne,"ITEM 1",5,10);
+		BarcodedProduct itemOneProduct = new BarcodedProduct(barcodeOne,"ITEM 1",5,11);
 		
-		Barcode barcodeTwo = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
+		Barcode barcodeTwo = new Barcode(new Numeral[] { Numeral.one, Numeral.one, Numeral.three, Numeral.four }); // 1134
 		BarcodedItem itemTwo  = new BarcodedItem(barcodeTwo,10);
-		BarcodedProduct itemTwoProduct = new BarcodedProduct(barcodeTwo,"ITEM 2",5,10);
+		BarcodedProduct itemTwoProduct = new BarcodedProduct(barcodeTwo,"ITEM 2",15,12);
 		
-		Barcode barcodeThree = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
+		
+		Barcode barcodeThree = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.one }); // 1231
 		BarcodedItem itemThree  = new BarcodedItem(barcodeThree,10);
-		BarcodedProduct itemThreeProduct = new BarcodedProduct(barcodeThree,"ITEM 3",5,10);
+		BarcodedProduct itemThreeProduct = new BarcodedProduct(barcodeThree,"ITEM 3",25,13);
 		
 		customer.shoppingCart.add(itemOne);
 		customer.shoppingCart.add(itemTwo);
@@ -539,15 +455,14 @@ public class CustomerCheckoutStationGUI
 		//attendant.signalWeightDisc = true;
 		
 		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemOneProduct);
-		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemTwoProduct);
-		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeOne, itemThreeProduct);
+		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeTwo, itemTwoProduct);
+		ProductDatabases.BARCODED_PRODUCT_DATABASE.put(barcodeThree, itemThreeProduct);
 		
-		
-		new CustomerCheckoutStationGUI();
 		AttendantCheckoutStationGUI attendantGUI  = new AttendantCheckoutStationGUI();
-		
 		Attendant attendant = new Attendant(attendantGUI);
 		
 		ScanItem scanItem = new ScanItem(DIY_Station,attendant);
+		
+		new CustomerCheckoutStationGUI(customer,scanItem);		
 	}
 }
