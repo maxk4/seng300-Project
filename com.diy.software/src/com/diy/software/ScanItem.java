@@ -25,24 +25,41 @@ public class ScanItem {
 	
 	
 	// Method that scans an item 
-	public void scanItems(BarcodedItem item) throws OverloadException, WeightDiscrepancyException {
+	public void scanItems(BarcodedItem item)  {
 		
 		if (station.scanner.scan(item) && customerSession && !blocked) {
 			blocked = true;
 			Barcode barcode = item.getBarcode();
 			double weight = item.getWeight();
-			double baggingAreaWeight = station.baggingArea.getCurrentWeight();
+			double baggingAreaWeight;
 			
-			BarcodedProduct product = ProductDatabases.BARCODED_PRODUCT_DATABASE.get(barcode);
-			double expectedWeight = product.getExpectedWeight() + baggingAreaWeight;
-			long price = product.getPrice();
-			
-			totalPrice += price;
-			
-			System.out.println("Please Place The Item In The Bagging Area");
-			
-			station.baggingArea.add(item);
-			testWeightDiscrepancy(weight+baggingAreaWeight, expectedWeight, station.baggingArea.getSensitivity());
+			try 
+			{
+				baggingAreaWeight = station.baggingArea.getCurrentWeight();
+				
+				BarcodedProduct product = ProductDatabases.BARCODED_PRODUCT_DATABASE.get(barcode);
+				double expectedWeight = product.getExpectedWeight() + baggingAreaWeight;
+				long price = product.getPrice();
+				
+				totalPrice += price;
+				
+				System.out.println("Please Place The Item In The Bagging Area");
+				
+				station.baggingArea.add(item);
+				
+				try 
+				{
+					testWeightDiscrepancy(weight+baggingAreaWeight, expectedWeight, station.baggingArea.getSensitivity());
+				} 
+				catch (WeightDiscrepancyException e) 
+				{
+					attendant.signalWeightDisc();
+				}
+			} 
+			catch (OverloadException e) 
+			{
+				//Alert the Attendant
+			}
 		}
 		blocked = false;
 	}
@@ -53,9 +70,6 @@ public class ScanItem {
 		// Checks if new weight is equal to expected weight with regards to sensitivity
 		if ((actualWeight < expectedWeight - sens) || (actualWeight > expectedWeight + sens)) {
 			blocked = true;
-
-			attendant.signalWeightDisc();
-			
 			// System.out.println("Bagging Area Weight Discrepancy Detected...");
 
 			// Signal attendant I/O about weight discrepancy
