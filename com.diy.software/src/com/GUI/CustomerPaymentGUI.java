@@ -6,10 +6,8 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.diy.software.Attendant;
 import com.diy.software.CreditCardPayment;
 import com.jimmyselectronics.opeechee.Card;
 
@@ -27,6 +25,8 @@ GUI_JFrame window;
 	
 	
 	private JTextField textField;
+	
+	private GUI_JButton submittButton;
 	
 	private CreditCardPayment creditCardPayment;
 	private Card card;
@@ -133,7 +133,7 @@ GUI_JFrame window;
 		textField.setHorizontalAlignment(JTextField.CENTER);
 		textField.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BLUE, fieldMargin));
 		
-		GUI_JButton submittButton = new GUI_JButton();
+		submittButton = new GUI_JButton();
 		submittButton.setText("SUBMIT PIN");
 		submittButton.addActionListener(e -> getPin());
 		
@@ -147,10 +147,12 @@ GUI_JFrame window;
 	
 	private void getPin() 
 	{
-		String inputPin  = textField.getText();
-				if(creditCardPayment.payWithCredit(inputPin, card, totalPrice))
+		String inputPin  = textField.getText().intern();
+		if(creditCardPayment.payWithCredit(inputPin, card, totalPrice))
 		{
 			textField.setText("Payment Sucsessful");
+			textField.setEditable(false);
+			submittButton.setEnabled(false);
 		}
 		else
 		{
@@ -158,13 +160,4 @@ GUI_JFrame window;
 		}
 
 	} 
-
-	
-	/*Only for testing the class*/
-	public static void main(String[] args) 
-	{
-		//CustomerPaymentGUI GUI = new CustomerPaymentGUI(null, null, 0);
-
-	}
-
 }

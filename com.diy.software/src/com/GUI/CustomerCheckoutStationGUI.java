@@ -1,8 +1,9 @@
 package com.GUI;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.*;
@@ -11,7 +12,6 @@ import com.diy.hardware.BarcodedProduct;
 import com.diy.hardware.DoItYourselfStation;
 import com.diy.hardware.external.ProductDatabases;
 import com.diy.simulation.Customer;
-import com.diy.simulation.Wallet;
 import com.diy.software.Attendant;
 import com.diy.software.CreditCardPayment;
 import com.diy.software.ScanItem;
@@ -385,9 +385,11 @@ public class CustomerCheckoutStationGUI
 	/*The action performed when addItemButton is pressed*/
 	private void payByCreditButtonAction() 
 	{
-		
-		Card card  = customer.wallet.cards.get(0);
-		
+		if(checkOut.size() == 0)
+		{
+			return;
+		}
+		Card card  = customer.wallet.cards.get(0);		
 		new CustomerPaymentGUI(creditCardPayment, card, total);
 	}
 	
@@ -438,9 +440,15 @@ public class CustomerCheckoutStationGUI
 		DoItYourselfStation DIY_Station = new DoItYourselfStation();
 		DIY_Station.plugIn();	
 		DIY_Station.turnOn();
-				
+		
+		String pin = new String("1234").intern(); 
 		Customer customer = new Customer();
-		Card card  = new Card("Visa","1234567","John","123","1234",true,true);
+		Card card  = new Card("Visa","1234567","John","123",pin,true,true);
+		
+		CreditCardPayment payment  = new CreditCardPayment();
+	 	Calendar expiry = new GregorianCalendar();
+	 	expiry.set(2024, 1, 1);
+		payment.bank.addCardData("1234567", "John", expiry, "123", 1000);
 		customer.wallet.cards.add(card);
 		
 		
@@ -472,7 +480,7 @@ public class CustomerCheckoutStationGUI
 		Attendant attendant = new Attendant(attendantGUI);
 		
 		ScanItem scanItem = new ScanItem(DIY_Station,attendant);
-		CreditCardPayment payment  = new CreditCardPayment();
+		
 		
 		new CustomerCheckoutStationGUI(customer,scanItem,payment);		
 	}

@@ -16,7 +16,7 @@ public class CreditCardPayment {
      * @param card
      */
 	 double amountDue;
-	 static CardIssuer bank = new CardIssuer("Bank",4);
+	 public CardIssuer bank = new CardIssuer("Bank",4);
 	
     // Signals the insertion of a credit card and PIN
     public boolean payWithCredit(String pin, Card card, double totalPrice)   
@@ -35,6 +35,7 @@ public class CreditCardPayment {
         // Signals to the Bank the details of the credit card and the amount to be
         // charged
         long authorizeHoldNumber = bank.authorizeHold(cardInsertData.getNumber(), totalPrice);
+        System.out.println("Hold:" + authorizeHoldNumber);
         // Signals to the Bank that the transaction identified with the hold number
         // should be posted,reducing the amount of credit available
         boolean transactionSucceded = bank.postTransaction(cardInsertData.getNumber(), authorizeHoldNumber, totalPrice);
@@ -43,8 +44,7 @@ public class CreditCardPayment {
         if (transactionSucceded) 
         {
             // Updates the amount due displayed to the customer.
-            amountDue -= totalPrice;
-            
+            amountDue -= totalPrice;            
             return true;
         }
         else
