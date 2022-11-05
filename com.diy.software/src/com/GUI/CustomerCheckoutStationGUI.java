@@ -480,7 +480,7 @@ public class CustomerCheckoutStationGUI
 		//Setting up test customer
 		Customer customer = new Customer();
 		
-		//Setting up test card DIY station
+		//Setting up test card 
 		String pin = new String("1234").intern(); 
 		Card card  = new Card("Visa","1234567","John","123",pin,true,true);
 		CreditCardPayment payment  = new CreditCardPayment();
