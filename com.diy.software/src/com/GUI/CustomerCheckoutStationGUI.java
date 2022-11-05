@@ -440,7 +440,9 @@ public class CustomerCheckoutStationGUI
 		DIY_Station.turnOn();
 				
 		Customer customer = new Customer();
-		customer.wallet = new Wallet();
+		Card card  = new Card("Visa","1234567","John","123","1234",true,true);
+		customer.wallet.cards.add(card);
+		
 		
 		Barcode barcodeOne = new Barcode(new Numeral[] { Numeral.one, Numeral.two, Numeral.three, Numeral.four }); // 1234
 		BarcodedItem itemOne = new BarcodedItem(barcodeOne,10);
