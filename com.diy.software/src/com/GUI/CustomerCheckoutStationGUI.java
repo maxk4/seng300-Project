@@ -47,12 +47,12 @@ public class CustomerCheckoutStationGUI
 	private GUI_JLabel currenttemPriceLabel;
 	private GUI_JButton addItemButton;
 	
-	private Customer customer;
+	public Customer customer;
 	
 	/* Checkout  Variables*/
 	private List<String> checkOut = new ArrayList<>();
-	private int currentItemIndex = 0;
-	private ScanItem scanItem;
+	public int currentItemIndex = 0;
+	public ScanItem scanItem;
 	
 	
 	/* Payment  Variables*/
