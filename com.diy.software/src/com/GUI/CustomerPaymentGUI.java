@@ -145,6 +145,7 @@ GUI_JFrame window;
 		window.add(centerPanel, BorderLayout.CENTER);
 	}
 	
+	/* Gets the pin inputed by the user and validates  the transaction*/
 	private void getPin() 
 	{
 		String inputPin  = textField.getText().intern();
