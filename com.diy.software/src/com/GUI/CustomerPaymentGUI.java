@@ -1,35 +1,59 @@
 package com.GUI;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
-public class AttendantCheckoutStaionGUI 
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import com.diy.software.Attendant;
+import com.diy.software.CreditCardPayment;
+import com.jimmyselectronics.opeechee.Card;
+
+public class CustomerPaymentGUI 
 {
-	GUI_JFrame window;
+
+GUI_JFrame window;
 	
 	/* Title Section Variables*/
-	GUI_JPanel titlePanel;
-	GUI_JLabel titleLabel;
+	private GUI_JPanel titlePanel;
+	private GUI_JLabel titleLabel;
 	
 	/* Center Section Variables*/
-	GUI_JPanel centerPanel;
+	private GUI_JPanel centerPanel;
 	
-	public AttendantCheckoutStaionGUI() 
+	
+	private JTextField textField;
+	
+	private CreditCardPayment creditCardPayment;
+	private Card card;
+	long totalPrice = 0;
+	
+	public CustomerPaymentGUI(CreditCardPayment creditCardPayment, Card card,long totalPrice) 
 	{
+		this.creditCardPayment = creditCardPayment;
+		this.card  = card;
+		this.totalPrice = totalPrice;
+		
 		/* Initialization of the GUI */
 		initalizeWindow();
 		initalizeTitlePanel();
 		initalizeSpacerPanels();
 		initalizeCenterPanel();
 		window.setVisible(true);
+
 	}
 	
 	/* Initialization of the GUI window*/
 	private void initalizeWindow() 
 	{
 		int topBottomMargin = 20;
-		window = new GUI_JFrame("Attendant Self Checkout Window");
-		window.setLayout(new BorderLayout(0,topBottomMargin));		
+		window = new GUI_JFrame("Payment Window");
+		window.setLayout(new BorderLayout(0,topBottomMargin));	
+		window.setSize(640,480);
 	}
 	
 	/* Initialization of the title  panel*/
@@ -37,13 +61,13 @@ public class AttendantCheckoutStaionGUI
 	{
 		/* Setup of the title's label */
 		titleLabel = new GUI_JLabel();
-		titleLabel.setText("ATTENDANT WINDOW");
+		titleLabel.setText("PAYMENT WINDOW");
 		titleLabel.setFont(GUI_Fonts.TITLE);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		/* Setup of the title's panel */
 		titlePanel = new GUI_JPanel();
-		titlePanel.setBackground(Color.decode("#223240"));
+		titlePanel.setBackground(GUI_Color_Palette.DARK_BLUE);
 		titlePanel.setPreferredSize(new Dimension(1280,75));
 		titlePanel.setLayout(new BorderLayout());
 		
@@ -95,25 +119,52 @@ public class AttendantCheckoutStaionGUI
 	private void initalizeCenterPanel() 
 	{
 		//Settings 
-		int gridLayoutRow = 0;
-		int gridLayoutColumn = 2;
-		int gridLayoutHorizontalSpacing = 50;
-		int gridLayoutVerticallSpacing = 0;
-		
+
 		//Setting up the center panel
 		centerPanel = new GUI_JPanel();
 		centerPanel.setBackground(GUI_Color_Palette.LIGHT_BLUE);
 		centerPanel.setPreferredSize(new Dimension(100,75));
-		centerPanel.setLayout(new GridLayout(gridLayoutRow,gridLayoutColumn,gridLayoutHorizontalSpacing,gridLayoutVerticallSpacing));	
+		centerPanel.setLayout(new BorderLayout());
+		
+		
+		int fieldMargin = 120;
+		textField = new  JTextField();
+		textField.setFont(GUI_Fonts.TITLE);
+		textField.setHorizontalAlignment(JTextField.CENTER);
+		textField.setBorder( BorderFactory.createLineBorder(GUI_Color_Palette.LIGHT_BLUE, fieldMargin));
+		
+		GUI_JButton submittButton = new GUI_JButton();
+		submittButton.setText("SUBMIT PIN");
+		submittButton.addActionListener(e -> getPin());
+		
+
+		centerPanel.add(textField, BorderLayout.CENTER);
+		centerPanel.add(submittButton, BorderLayout.SOUTH);
 		
 		//Adding the center panel to the window
 		window.add(centerPanel, BorderLayout.CENTER);
 	}
 	
+	private void getPin() 
+	{
+		String inputPin  = textField.getText();
+				if(creditCardPayment.payWithCredit(inputPin, card, totalPrice))
+		{
+			textField.setText("Payment Sucsessful");
+		}
+		else
+		{
+			textField.setText("Try again");
+		}
+
+	} 
+
 	
 	/*Only for testing the class*/
 	public static void main(String[] args) 
 	{
-		new AttendantCheckoutStaionGUI();
+		//CustomerPaymentGUI GUI = new CustomerPaymentGUI(null, null, 0);
+
 	}
+
 }
