@@ -45,9 +45,12 @@ public class CustomerCheckoutStationGUI
 	private GUI_JPanel currentItemButtonsPanel;
 	private GUI_JLabel currentItemLabel;
 	private GUI_JLabel currenttemPriceLabel;
-	private GUI_JButton addItemButton;
+	public GUI_JButton addItemButton;
+	public GUI_JButton payByCreditButton;
+	CustomerPaymentGUI customerPaymentGUI;
 	
 	public Customer customer;
+	
 	
 	/* Checkout  Variables*/
 	private List<String> checkOut = new ArrayList<>();
@@ -316,7 +319,7 @@ public class CustomerCheckoutStationGUI
 		
 		//Setting up pay button
 		String payByCreditButtonText = "Pay by Credit";
-		GUI_JButton payByCreditButton = new GUI_JButton();
+		payByCreditButton = new GUI_JButton();
 		payByCreditButton.setText(payByCreditButtonText.toUpperCase());
 		payByCreditButton.setBorder(BorderFactory.createLineBorder(GUI_Color_Palette.DARK_BLUE,butttonMargin));
 		payByCreditButton.addActionListener(e -> payByCreditButtonAction());
@@ -422,7 +425,7 @@ public class CustomerCheckoutStationGUI
 			return;
 		}
 		Card card  = customer.wallet.cards.get(0);		
-		new CustomerPaymentGUI(creditCardPayment, card, total);
+		customerPaymentGUI = new CustomerPaymentGUI(creditCardPayment, card, total);
 	}
 	
 	/*Updates the items in checkout GUI element*/
@@ -467,6 +470,18 @@ public class CustomerCheckoutStationGUI
 	private BarcodedProduct getCurrentProduct()
 	{
 		return ProductDatabases.BARCODED_PRODUCT_DATABASE.get(getCurrentItem().getBarcode());
+	}
+	
+	public List<String> getCheckOutItems()
+	{
+		
+		return checkOut;
+	
+	}
+	
+	public GUI_JButton getAddItemButton()
+	{
+		return addItemButton;
 	}
 	
 	/*Only for testing the class*/
@@ -526,5 +541,6 @@ public class CustomerCheckoutStationGUI
 		
 		//Running an instance of the GUI
 		new CustomerCheckoutStationGUI(customer,scanItem,payment);		
+		
 	}
 }
