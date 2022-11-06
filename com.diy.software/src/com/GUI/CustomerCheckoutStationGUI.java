@@ -47,7 +47,7 @@ public class CustomerCheckoutStationGUI
 	private GUI_JLabel currenttemPriceLabel;
 	public GUI_JButton addItemButton;
 	public GUI_JButton payByCreditButton;
-	CustomerPaymentGUI customerPaymentGUI;
+	public CustomerPaymentGUI customerPaymentGUI;
 	
 	public Customer customer;
 	

@@ -1,4 +1,4 @@
-package com.GUI;
+package com.testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,8 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+import com.GUI.AttendantCheckoutStationGUI;
+import com.GUI.CustomerCheckoutStationGUI;
 import com.diy.hardware.BarcodedProduct;
 import com.diy.hardware.DoItYourselfStation;
 import com.diy.hardware.external.ProductDatabases;
