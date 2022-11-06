@@ -24,9 +24,9 @@ GUI_JFrame window;
 	private GUI_JPanel centerPanel;
 	
 	
-	private JTextField textField;
+	public JTextField textField;
 	
-	private GUI_JButton submittButton;
+	public GUI_JButton submittButton;
 	
 	private CreditCardPayment creditCardPayment;
 	private Card card;
