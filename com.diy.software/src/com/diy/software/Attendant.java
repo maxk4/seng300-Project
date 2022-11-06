@@ -6,6 +6,7 @@ public class Attendant
 {
 	/*GUI Reference */
 	private AttendantCheckoutStationGUI GUI;
+	public boolean WeightDisc = false;
 	
 	public Attendant(AttendantCheckoutStationGUI GUI) 
 	{
@@ -15,6 +16,7 @@ public class Attendant
 	/*Signals to the GUI that a weight discrepancy has occurred */
 	public void signalWeightDisc()
 	{
+		WeightDisc = true;
 		GUI.displayWeightDiscrepancy();
 	}
 

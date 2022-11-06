@@ -25,10 +25,11 @@ public class ScanItem {
 	
 	
 	// Method that scans an item 
-	public void scanItems(BarcodedItem item)  {
+	public boolean scanItems(BarcodedItem item)  {
 		
 		if (station.scanner.scan(item) && customerSession && !blocked) {
 			blocked = true;
+
 			Barcode barcode = item.getBarcode();
 			double weight = item.getWeight();
 			double baggingAreaWeight;
@@ -60,8 +61,11 @@ public class ScanItem {
 			{
 				//Alert the Attendant
 			}
+			return true;
 		}
+		
 		blocked = false;
+		return false;
 	}
 	
 	
